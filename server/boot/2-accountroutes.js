@@ -18,16 +18,14 @@ module.exports = function publicApi(app) {
   app.post('/account/register', async function(req, res) {
     try {
       var data = req.body;
-
       if (data.password !== data.confirmPassword) {
         res.status(400).json({error: {msg: 'Mot de passe de confirmation inccorect'}});
         return;
       }
-
       var User = app.models.User;
-      var newUser = new User(req.body);
+      data.rank = 0;
+      var newUser = new User(data);
       await newUser.save();
-
       var login = await app.models.User.login({
         username: req.body.username,
         password: req.body.password,
@@ -52,6 +50,7 @@ module.exports = function publicApi(app) {
     try {
       var login = await app.models.User.login({
         username: req.body.username,
+        email: req.body.email,
         password: req.body.password,
       }, 'user');
 
@@ -115,7 +114,7 @@ module.exports = function publicApi(app) {
       var user = req.user;
       user.firstName = req.body.firstName;
       user.lastName = req.body.lastName;
-      user.artistName = req.body.artistName;
+      user.nickName = req.body.nickName;
       user.phone = req.body.phone;
       user = await user.save();
 
