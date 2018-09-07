@@ -15,6 +15,11 @@ function _formatWebAuth(user, token, isAuth = true) {
 }
 
 module.exports = function publicApi(app) {
+  app.post('/account/exists', async function(req, res) {
+    await app.models.User.findOne({where:{username: req.body.username,email: req.body.email}}) ?
+      res.status(400).json({msg:'KO'}): res.status(200).json({msg:'OK'})
+  });
+
   app.post('/account/register', async function(req, res) {
     try {
       var data = req.body;
