@@ -35,5 +35,13 @@
   "Role": {
     "dataSource": "mongodb",
     "public": false
+  },
+  "Place": {
+    "dataSource": "mongodb",
+    "public": false
+  },
+  "Partner": {
+    "dataSource": "mongodb",
+    "public": false
   }
 }
