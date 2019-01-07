@@ -57,7 +57,7 @@ module.exports = function publicApi(app) {
       }
 
       if (tokenId && (oldToken = await AccessToken.findById(tokenId))) {
-        login.deviceId = oldToken.deviceId;
+        login.data['deviceId'] = oldToken.data['deviceId'];
         login.position = oldToken.position;
         await oldToken.destroy();
         login = await login.save();

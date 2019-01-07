@@ -14,8 +14,8 @@ module.exports = function publicApi(app) {
 
       if (tokenId && (oldToken = await AccessToken.findById(tokenId))) {
         user = oldToken.userId ? await oldToken.user.get() : {};
+        newToken.data = oldToken.data;
         newToken.userId = oldToken.userId;
-        newToken.deviceId = oldToken.deviceId;
         newToken.position = oldToken.position;
         await oldToken.destroy();
       }
@@ -42,7 +42,8 @@ module.exports = function publicApi(app) {
         res.status(400).json({msg: 'Le token est introuvable'});
         return;
       }
-      token.deviceId = deviceId;
+
+      token.data['deviceId'] = deviceId;
       token.updatedAt = new Date();
       token = await token.save();
       res.json(token);
