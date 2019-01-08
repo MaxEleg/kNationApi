@@ -29,7 +29,7 @@ module.exports = function publicApi(app) {
   app.post('/v1/account/token', async function(req, res) {
     try {
       let tokenId = req.query.token || req.body.token || req.headers.token;
-      let deviceId = req.body.deviceId;
+      let data = req.body;
 
       if (!tokenId) {
         res.status(400).json({msg: 'Token non fourni'});
@@ -42,8 +42,8 @@ module.exports = function publicApi(app) {
         res.status(400).json({msg: 'Le token est introuvable'});
         return;
       }
-
-      token.data['deviceId'] = deviceId;
+      token.data['deviceId'] = data.deviceId;
+      token.data['settings'] = data.settings;
       token.updatedAt = new Date();
       token = await token.save();
       res.json(token);
