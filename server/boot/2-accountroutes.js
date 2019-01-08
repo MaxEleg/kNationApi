@@ -11,7 +11,9 @@ module.exports = function publicApi(app) {
       let data = req.body;
       data.username = data.username ? data.username.toLowerCase() : null;
       data.email = data.email ? data.email.toLowerCase() : null;
-      data.birthDate = new Date(parseInt(data.birthDate));
+      if (data.birthDate) {
+        data.birthDate = new Date(parseInt(data.birthDate));
+      }
       if (data.password !== data.confirmPassword) {
         res.status(400).json({error: {msg: 'Mot de passe de confirmation inccorect'}});
         return;
