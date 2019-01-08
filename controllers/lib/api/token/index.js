@@ -12,11 +12,6 @@ function formatWebAuth(user, token) {
     isAuth: user.id !== undefined,
     token: token.id,
   };
-
-  if (tkn.isAuth) {
-    tkn['nickname'] =
-      tkn['birthDate'] =
-  }
 }
 
 module.exports = {
