@@ -1,7 +1,7 @@
 'use strict';
 
 function formatWebAuth(user, token) {
-  let tkn =  {
+  return {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
