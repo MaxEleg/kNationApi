@@ -4,6 +4,7 @@ module.exports = function(app) {
   const User = app.models.User;
   User.defineProperty('email', {type: 'string', required: 'Cette adresse email est déjà associé à un compte'});
   User.defineProperty('nickname', {type: 'string', required: 'Ce pseudo est déjà pris'});
+  User.defineProperty('displayedNickname', {type: 'string', required: false});
   User.defineProperty('username', {type: 'string', required: 'Ce nom de compte est déjà pris'});
   User.defineProperty('firstName', {type: 'string'});
   User.defineProperty('lastName', {type: 'string'});

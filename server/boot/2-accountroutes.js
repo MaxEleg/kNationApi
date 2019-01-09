@@ -11,6 +11,7 @@ module.exports = function publicApi(app) {
       let data = req.body;
       data.username = data.username ? data.username.toLowerCase().trim() : null;
       data.email = data.email ? data.email.toLowerCase().trim() : null;
+      data.displayedNickname = data.nickname.toString();
       data.nickname = data.nickname ? data.nickname.toLowerCase().trim() : null;
       if (data.birthDate) {
         data.birthDate = new Date(parseInt(data.birthDate));
