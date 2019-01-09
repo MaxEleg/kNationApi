@@ -9,8 +9,9 @@ module.exports = function publicApi(app) {
   app.post('/v1/account/register', async function(req, res) {
     try {
       let data = req.body;
-      data.username = data.username ? data.username.toLowerCase() : null;
-      data.email = data.email ? data.email.toLowerCase() : null;
+      data.username = data.username ? data.username.toLowerCase().trim() : null;
+      data.email = data.email ? data.email.toLowerCase().trim() : null;
+      data.nickname = data.nickname ? data.nickname.toLowerCase().trim() : null;
       if (data.birthDate) {
         data.birthDate = new Date(parseInt(data.birthDate));
       }
@@ -104,9 +105,11 @@ module.exports = function publicApi(app) {
   app.get('/v1/account/check', async function(req, res) {
     let username = req.query.username || req.body.username || req.headers.username;
     let email = req.query.email || req.body.email || req.headers.email;
+    let nickname = req.query.nickname || req.body.nickname || req.headers.nickname;
 
-    let query = username ? {username: username.toLowerCase()} : {};
-    query = email ? {email: email.toLowerCase()} : query;
+    let query = username ? {username: username.toLowerCase().trim()} : {};
+    query = email ? {email: email.toLowerCase().trim()} : query;
+    query = nickname ? {nickname: nickname.toLowerCase().trim()} : query;
 
     try {
       let user = await User.findOne({where: query});
